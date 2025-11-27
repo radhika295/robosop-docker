@@ -44,9 +44,9 @@ services:
         - rabbitmq
         - cart
         - user
-  frontned:
-        image: frontned:v1
-        container_name: frontned
+  frontend:
+        image: frontend:v1
+        container_name: frontend
         ports:
         - "80:80"
         depends_on:
