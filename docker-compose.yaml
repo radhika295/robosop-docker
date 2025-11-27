@@ -1,5 +1,5 @@
 services:
-  mongodb: # --name mongodb
+  mongodb:
     image: mongodb:v1
     container_name: mongodb
   catalogue:
@@ -8,7 +8,7 @@ services:
      depends_on:
      - mongodb
   redis:
-     image: redis:v1
+     image: redis:latest
      container_name: redis
   mysql:
       image: mysql:v1
