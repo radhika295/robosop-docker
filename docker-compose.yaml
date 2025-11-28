@@ -1,11 +1,13 @@
 services:
   mongodb:
-    image: mongodb:v1
+    build: ./mongodb
+    image: navomika18/mongodb:v1
     container_name: mongodb
     volumes:
-    - mongodb:/data/db
+    - mongodb:/data/db  #/data/db is container path refering to host path 
   catalogue:
-     image: catalogue:v1
+     build: ./catalogue
+     image: navomika18/catalogue:v1
      container_name: catalogue
      depends_on:
      - mongodb
@@ -15,7 +17,8 @@ services:
      volumes:
      - redis:/data
   mysql:
-      image: mysql:v1
+      build: ./mysql
+      image: navomika18/mysql:v1
       container_name: mysql
       volumes:
       - mysql:/var/lib/mysql
@@ -28,32 +31,37 @@ services:
        volumes: # -v rabbitmq:/var/lib/rabbitmq
        - rabbitmq:/var/lib/rabbitmq
   user:
-       image: user:v1
+       build: ./mysql
+       image: navomika18/user:v1
        container_name: user
        depends_on:
        - mongodb
        - redis
   cart:
-        image: cart:v1
+        build: ./cart
+        image: navomika18/cart:v1
         container_name: cart
         depends_on:
         - redis
         - catalogue
   shipping:
-        image: shipping:v1
+        build: ./shipping
+        image: navomika18/shipping:v1
         container_name: shipping
         depends_on:
         - mysql
         - cart
   payment:
-        image: payment:v1
+        build: ./payment
+        image: navomika18/payment:v1
         container_name: payment
         depends_on:
         - rabbitmq
         - cart
         - user
   frontend:
-        image: frontend:v1
+        build: ./frontend
+        image: navomika18/frontend:v1
         container_name: frontend
         ports:
         - "80:80"
@@ -70,7 +78,7 @@ networks:
     external: false #true if you have created a network manually using the docker network command
 
 volumes:
-  mongodb:
+  mongodb: #/var/lib/docker/volumes   host path 
   mysql:
   redis:
   rabbitmq:
