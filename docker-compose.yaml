@@ -31,7 +31,7 @@ services:
        volumes: # -v rabbitmq:/var/lib/rabbitmq
        - rabbitmq:/var/lib/rabbitmq
   user:
-       build: ./mysql
+       build: ./user
        image: navomika18/user:v1
        container_name: user
        depends_on:
